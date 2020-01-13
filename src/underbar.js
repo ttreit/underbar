@@ -38,7 +38,7 @@
   // Like first, but for the last elements. If n is undefined, return just the
   // last element.
 
-_.last = ((array, n) => (n === undefined ? array[array.length-1] : array.slice(n * -1)));
+_.last = ((array, n) => (n === undefined ? array[array.length-1] : n === 0 ? [] : array.slice(n * -1)));
   // _.last = function(array, n) {
   // };
 
