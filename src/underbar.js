@@ -87,13 +87,13 @@ _.last = ((array, n) => (n === undefined ? array[array.length-1] : n === 0 ? [] 
     }
     return filterResult;
   };
- var myFilter = _.filter;
+
   // Return all elements of an array that don't pass a truth test.
     // TIP: see if you can re-use _.filter() here, without simply
     // copying code in and modifying it
   _.reject = function(collection, test) {
     var finalArray = [];
-    var oppositeArray = myFilter(collection, test);
+    var oppositeArray = _.filter(collection, test);
     var totalArray = collection.toString().split(',').map(Number);
     oppositeArray = oppositeArray.toString().split(',').map(Number);
     for (var i in totalArray) {
@@ -108,10 +108,12 @@ _.last = ((array, n) => (n === undefined ? array[array.length-1] : n === 0 ? [] 
 
   // Produce a duplicate-free version of the array.
   _.uniq = function(array, isSorted, iterator) {
+    const tempSet = new Set(array);
+    const noDupes = [...tempSet];
+    return noDupes;
   };
 
-
-  // Return the results of applying an iterator to each element.
+// Return the results of applying an iterator to each element.
   _.map = function(collection, iterator) {
     // map() is a useful primitive iteration function that works a lot
     // like each(), but in addition to running the operation on all
