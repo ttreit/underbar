@@ -114,10 +114,23 @@ _.last = ((array, n) => (n === undefined ? array[array.length-1] : n === 0 ? [] 
   };
 
 // Return the results of applying an iterator to each element.
-  _.map = function(collection, iterator) {
     // map() is a useful primitive iteration function that works a lot
     // like each(), but in addition to running the operation on all
     // the members, it also maintains an array of results.
+  _.map = function(collection, iterator) {
+    const resultArray = [];
+    if (Array.isArray(collection)) {
+      for (let i = 0; i < collection.length; i++) {
+        resultArray.push(iterator(collection[i], i, collection));
+      }
+
+    } else {
+      for (let i in collection) {
+        resultArray.push(iterator(collection[i], i, collection));
+      }
+
+    }
+    return resultArray;
   };
 
   /*
