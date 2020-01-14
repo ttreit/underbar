@@ -78,6 +78,14 @@ _.last = ((array, n) => (n === undefined ? array[array.length-1] : n === 0 ? [] 
 
   // Return all elements of an array that pass a truth test.
   _.filter = function(collection, test) {
+    var filterResult = [];
+    for(var i = 0; i < collection.length; i++) {
+        var result = test(collection[i], i, collection);
+        if (result) {
+            filterResult.push(collection[i]);
+        }
+    }
+    return filterResult;
   };
 
   // Return all elements of an array that don't pass a truth test.
