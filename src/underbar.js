@@ -87,11 +87,23 @@ _.last = ((array, n) => (n === undefined ? array[array.length-1] : n === 0 ? [] 
     }
     return filterResult;
   };
-
+ var myFilter = _.filter;
   // Return all elements of an array that don't pass a truth test.
-  _.reject = function(collection, test) {
     // TIP: see if you can re-use _.filter() here, without simply
     // copying code in and modifying it
+  _.reject = function(collection, test) {
+    var finalArray = [];
+    var oppositeArray = myFilter(collection, test);
+    var totalArray = collection.toString().split(',').map(Number);
+    oppositeArray = oppositeArray.toString().split(',').map(Number);
+    for (var i in totalArray) {
+      if(oppositeArray.indexOf(totalArray[i]) === -1) finalArray.push(totalArray[i]);
+      }
+      for(i in oppositeArray) {
+      if(totalArray.indexOf(oppositeArray[i]) === -1) finalArray.push(oppositeArray[i]);
+      }
+    return finalArray;
+
   };
 
   // Produce a duplicate-free version of the array.
