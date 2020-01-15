@@ -133,12 +133,6 @@ _.last = ((array, n) => (n === undefined ? array[array.length-1] : n === 0 ? [] 
     return resultArray;
   };
 
-/*
-var stooges = [{name: 'moe', age: 40}, {name: 'larry', age: 50}, {name: 'curly', age: 60}];
-_.pluck(stooges, 'name');
-=> ["moe", "larry", "curly"]
-*/
-
 
   /*
    * TIP: map is really handy when you want to transform an array of
@@ -186,19 +180,13 @@ _.pluck(stooges, 'name');
       accumulator = collection[0];
       index = 1;
     }
-
     if (Array.isArray(collection)) {
       for (; index < collection.length; index++) {
-        iterator(accumulator, collection[index], index, collection);
+        accumulator = iterator(accumulator, collection[index], index, collection);
       }
       return accumulator;
     }
-
-
-
-
   };
-
 
   /////underbar2//////
   // Determine if the array or object contains a given value (using `===`).
