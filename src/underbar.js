@@ -92,22 +92,18 @@ _.last = ((array, n) => (n === undefined ? array[array.length-1] : n === 0 ? [] 
     // TIP: see if you can re-use _.filter() here, without simply
     // copying code in and modifying it
   _.reject = function(collection, test) {
-    var finalArray = [];
-    var oppositeArray = _.filter(collection, test);
-    var totalArray = collection.toString().split(',').map(Number);
-    oppositeArray = oppositeArray.toString().split(',').map(Number);
-    for (var i in totalArray) {
-      if(oppositeArray.indexOf(totalArray[i]) === -1) finalArray.push(totalArray[i]);
-      }
-      for(i in oppositeArray) {
-      if(totalArray.indexOf(oppositeArray[i]) === -1) finalArray.push(oppositeArray[i]);
-      }
-    return finalArray;
-
+    var filterResult = [];
+    for(var i = 0; i < collection.length; i++) {
+        var result = test(collection[i], i, collection);
+        if (!result) {
+            filterResult.push(collection[i]);
+        }
+    }
+    return filterResult;
   };
 
   // Produce a duplicate-free version of the array.
-  _.uniq = function(array, isSorted, iterator) {
+  _.uniq = function(array) {
     const tempSet = new Set(array);
     const noDupes = [...tempSet];
     return noDupes;
