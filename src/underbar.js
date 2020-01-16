@@ -181,10 +181,20 @@ _.last = ((array, n) => (n === undefined ? array[array.length-1] : n === 0 ? [] 
         accumulator = iterator(accumulator, collection[index], index, collection);
       }
       return accumulator;
+    } else {
+        for (let index in collection) {
+          accumulator = iterator(accumulator, collection[index], index, collection);
+        }
+      return accumulator;
     }
   };
+//iterator has four parameters based on https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/Reduce
+
+
 
   /////underbar2//////
+
+
   // Determine if the array or object contains a given value (using `===`).
   _.contains = function(collection, target) {
     // TIP: Many iteration problems can be most easily expressed in
@@ -200,7 +210,24 @@ _.last = ((array, n) => (n === undefined ? array[array.length-1] : n === 0 ? [] 
 
   // Determine whether all of the elements match a truth test.
   _.every = function(collection, iterator) {
-    // TIP: Try re-using reduce() here.
+    if (iterator === undefined) {
+      iterator = item => item === true;
+    }
+    if (Array.isArray(collection)) {
+      for (let i = 0; i < collection.length; i++) {
+        if (!iterator(collection[i])) {
+          return false;
+        }
+      }
+      return true;
+    } else {
+      for (let key in collection) {
+        if (!iterator(collection[key])) {
+          return false;
+        }
+      }
+      return true;
+    }
   };
 
   // Determine whether any of the elements pass a truth test. If no iterator is
