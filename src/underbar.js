@@ -233,9 +233,25 @@ _.last = ((array, n) => (n === undefined ? array[array.length-1] : n === 0 ? [] 
   // Determine whether any of the elements pass a truth test. If no iterator is
   // provided, provide a default one
   _.some = function(collection, iterator) {
-    // TIP: There's a very clever way to re-use every() here.
+    if (iterator === undefined) {
+      iterator = item => item === true;
+    }
+    if (Array.isArray(collection)) {
+      for (let i = 0; i < collection.length; i++) {
+        if (iterator(collection[i])) {
+          return true;
+        }
+      }
+      return false;
+    } else {
+      for (let key in collection) {
+        if (iterator(collection[key])) {
+          return true;
+        }
+      }
+      return false;
+    }
   };
-
 
   /**
    * OBJECTS
