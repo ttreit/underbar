@@ -272,7 +272,7 @@ _.last = ((array, n) => (n === undefined ? array[array.length-1] : n === 0 ? [] 
   //     bla: "even more stuff"
   //   }); // obj1 now contains key1, key2, key3 and bla
 
-  _.extend = function(obj) {
+  _.extend = function() {
     //sort out the arguments
     let args = Array.prototype.slice.call(arguments);
     let original = args.shift();
@@ -293,8 +293,29 @@ _.last = ((array, n) => (n === undefined ? array[array.length-1] : n === 0 ? [] 
 
   // Like extend, but doesn't ever overwrite a key that already
   // exists in obj
-  _.defaults = function(obj) {
-  };
+  _.defaults = function() {
+    //sort out the arguments
+    let args = Array.prototype.slice.call(arguments);
+    let original = args.shift();
+
+    //get list of keys from original to not overwrite
+    let preserveKeys = Object.keys(original);
+
+    //add data from args to source
+    for (let i = 0; i < args.length; i++) {
+        let tempObj = args[i];
+        let key;
+        let value;
+         for (let k in tempObj) {
+                key = k;
+                value = tempObj[key]
+                if ((!(preserveKeys.includes(key))))
+                original[key] = value;
+                preserveKeys.push(key);
+          }
+    }
+    return original;
+};
 
 
   /**
