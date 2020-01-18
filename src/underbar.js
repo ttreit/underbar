@@ -363,7 +363,6 @@ _.last = ((array, n) => (n === undefined ? array[array.length-1] : n === 0 ? [] 
  return function() {
      //when invoked our function will run this part
         let args = Array.prototype.slice.call(arguments);
-        args.sort();
         if (!(argsList.hasOwnProperty(args))) {
             result = func.apply(this, arguments);
             argsList[args] = result;
