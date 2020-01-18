@@ -358,6 +358,18 @@ _.last = ((array, n) => (n === undefined ? array[array.length-1] : n === 0 ? [] 
   // already computed the result for the given argument and return that value
   // instead if possible.
   _.memoize = function(func) {
+    var result;
+    let argsList = {};
+ return function() {
+     //when invoked our function will run this part
+        let args = Array.prototype.slice.call(arguments);
+        args.sort();
+        if (!(argsList.hasOwnProperty(args))) {
+            result = func.apply(this, arguments);
+            argsList[args] = result;
+        }
+      return result;
+    };
   };
 
   // Delays a function for the given number of milliseconds, and then calls
