@@ -395,9 +395,22 @@ _.last = ((array, n) => (n === undefined ? array[array.length-1] : n === 0 ? [] 
   // input array. For a tip on how to make a copy of an array, see:
   // http://mdn.io/Array.prototype.slice
   _.shuffle = function(array) {
-    let shuffledArray = array.slice(0);
+    let tempArray = array.slice(0);
+    let shuffledArray = []
+    for(let i =0; i < tempArray.length; i++) {
+        if (getRandomInt(2) === 0) {
+            shuffledArray.push(tempArray[i]);
+        } else {
+            shuffledArray.unshift(tempArray[i]);
+        }
+    }
     console.log(shuffledArray);
-  };
+    return shuffledArray;
+};
+
+function getRandomInt(max) {
+    return Math.floor(Math.random() * Math.floor(max));
+  }
 
 
   /**
