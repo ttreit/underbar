@@ -378,6 +378,9 @@ _.last = ((array, n) => (n === undefined ? array[array.length-1] : n === 0 ? [] 
   // parameter. For example _.delay(someFunction, 500, 'a', 'b') will
   // call someFunction('a', 'b') after 500ms
   _.delay = function(func, wait) {
+    let args = Array.prototype.slice.call(arguments);
+    args = args.slice(2);
+    setTimeout(func, wait, ...args);
   };
 
 
@@ -392,6 +395,8 @@ _.last = ((array, n) => (n === undefined ? array[array.length-1] : n === 0 ? [] 
   // input array. For a tip on how to make a copy of an array, see:
   // http://mdn.io/Array.prototype.slice
   _.shuffle = function(array) {
+    let shuffledArray = array.slice(0);
+    console.log(shuffledArray);
   };
 
 
