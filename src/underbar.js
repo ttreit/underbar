@@ -103,11 +103,18 @@ _.last = ((array, n) => (n === undefined ? array[array.length-1] : n === 0 ? [] 
   };
 
   // Produce a duplicate-free version of the array.
-  _.uniq = function(array) {
-    const tempSet = new Set(array);
-    const noDupes = [...tempSet];
-    return noDupes;
-  };
+  _.uniq = function(array, isSorted, iterator) {
+    let result = [];
+    if (isSorted === undefined && iterator === undefined) {
+        const tempSet = new Set(array);
+        const noDupes = [...tempSet];
+        return noDupes;
+    } else {
+        console.log('isSorted and iterator passed in');
+        console.log('Add some code to get these to pass test')
+        return result;
+  }
+};
 
 // Return the results of applying an iterator to each element.
     // map() is a useful primitive iteration function that works a lot
@@ -358,18 +365,32 @@ _.last = ((array, n) => (n === undefined ? array[array.length-1] : n === 0 ? [] 
   // already computed the result for the given argument and return that value
   // instead if possible.
   _.memoize = function(func) {
-    var result;
+    let result;
     let argsList = {};
- return function() {
+  return function() {
      //when invoked our function will run this part
         let args = Array.prototype.slice.call(arguments);
-        if (!(argsList.hasOwnProperty(args))) {
+        let argsKey = buildKey(args);
+        if (!(argsList.hasOwnProperty(argsKey))) {
             result = func.apply(this, arguments);
-            argsList[args] = result;
-        }
+            argsList[argsKey] = result;      }
       return result;
     };
+
+    function buildKey(args) {
+      let argKey ='';
+      for(let i = 0; i < args.length; i++) {
+        if(Array.isArray(args[i])) {
+          let argA= args[i]+'A';  //A for "array"
+          argKey += argA;
+        } else {
+          argKey += args[i];
+        }
+      }
+      return argKey;
+    }
   };
+
 
   // Delays a function for the given number of milliseconds, and then calls
   // it with the arguments supplied.
